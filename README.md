@@ -24,7 +24,7 @@
 
 **Coding scenario**
 > MyApp object will make use of BaseballCoach object using getDailyWorkout().
-> However, MyApp.class should be configurable. It can easily change the coach for another sport. So, I should be able to plug in a variety of coaches into MyApp obejct.
+> However, MyApp.class should be configurable. It can easily change the coach for another sport. So, I should be able to plug in a variety of Coach objects into MyApp obejct.
 
 
 
