@@ -41,7 +41,7 @@
 ```
   
   **2. Create a spring container.**
-  - Spring containe is generally known as ApplicationContext.
+  - Spring container is generally known as ApplicationContext.
   - Specialized implementations
      1. ClassPathXmlApplicationContext
      2. AnnotationConfigApplicationContext
@@ -123,11 +123,12 @@ public class BaseballCoach implements Coach {
 **3. Configure the dependency injection in Spring config file.**
 ```xml
 <!-- File: applicationContext.xml -->
+
 <!-- define dependency/helper -->
 <bean id="myFortuneService" class="com.springdemo.HappyFortuneService"></bean>
 
 <!-- HappyFortuneService myFortuneService = new HappyFortuneService();
-   is done by Spring Framework using the created bean above. -->
+   is done by Spring Framework using the configuration above. -->
 
 
 <bean id="myCoach" class="com.springdemo.BaseballCoach">
@@ -138,7 +139,7 @@ public class BaseballCoach implements Coach {
 </bean>
 
 <!-- BaseballCoach myCoach = new BaseballCoach(myFortuneService); 
-    is done by Spring Framework using the created beans above. -->
+    is done by Spring Framework using the configuration above. -->
 ```
 
 ---
