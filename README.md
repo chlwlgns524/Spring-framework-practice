@@ -16,7 +16,7 @@
 
 ---
 
-# 2. IoC(Inversion of Control)
+# 2. IoC(Inversion of Control) - XML Configuration
 
 ## 2.1 IoC
 - Outsource to an object factory.
@@ -34,18 +34,19 @@
 ## 2.4 Spring Development Process
   **1. Configure spring beans.**
 ```xml
-<beans ...>
-    <bean id="myCoach" class="com.springdemo.BaseballCoach"> 
-      
 <!-- the "id" is like an alias and the "class" is fully qualified class name of implementation class -->
-      
-    </bean>
+<beans ...>
+    <bean id="myCoach" class="com.springdemo.BaseballCoach"></bean>
 </beans>
 ```
   
   **2. Create a spring container.**
   - Spring containe is generally known as ApplicationContext.
-  - Specialized implementations such as ClassPathXmlApplicationContext, AnnotationConfigApplicationContext, GenericWebApplicationContext and others.
+  - Specialized implementations
+     1. ClassPathXmlApplicationContext
+     2. AnnotationConfigApplicationContext
+     3. GenericWebApplicationContext
+     4. Others
 ```java
 // the argument is the name of config file
 ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -64,5 +65,80 @@ Coach theCoach = context.getBean("myCoach", Coach.class);
 
 > A "Spring Bean" is simply a Java object. When Java objects are created by the Spring Container, then Spring refers to them as "Spring Beans". Spring Beans are created from
 > normal Java classes, just like Java objects. In the early days, there was a term called "Java Beans". Spring Beans have a similar concept but Spring Beans do not follow all of the rigorous requirements of Java Beans. In summary, when seeing "Spring Bean", just think Java object.
+
+---
+
+# 3. DI(Dependency Injection) - XML Configuration
+
+## 3.1 DI
+ - The dependency inversion principle.
+ - The client delegates to calls to another object the responsibility of providing its dependency.
+ - "dependency" same thing as "helper objects"
+
+## 3.2 Demo Example
+ - The Coach already provides daily workouts.
+ - Now will also priovide daily fortunes
+   1. New helper: FortuneService
+   2. This is dependency
+
+## 3.3 Injection Types
+ - There are many types of injection with Spring.
+ - There are the two most common
+    1. Construction Injection
+    2. Setter Injection
+
+## 3.4 Development Process - Constructor Injection
+
+**1. Define the dependency interface and class.**
+```java
+// File: FortuneService.java
+public interface FortuneService {
+    public String getFortune();
+}
+
+...
+
+// File: HappyFortuneService.java
+public class HappyFortuneService implements FortuneService {
+    @Override
+    public String getFortune() {
+        return "Today is your lucky day!";
+    }
+}
+```
+**2. Create a constructor in the class for injections.**
+```java
+// File: BaseballCoach.java
+public class BaseballCoach implements Coach {
+    // define field
+    private FortuneService fortuneService; 
+    
+    // define constructor
+    public BaseballCoach(FortuneService fortuneService) { 
+        this.fortuneService = fortuneService;
+    }
+    ...
+}
+```
+**3. Configure the dependency injection in Spring config file.**
+```xml
+<!-- File: applicationContext.xml -->
+<!-- define dependency/helper -->
+<bean id="myFortuneService" class="com.springdemo.HappyFortuneService"></bean>
+
+<!-- HappyFortuneService myFortuneService = new HappyFortuneService();
+   is done by Spring Framework using the created bean above. -->
+
+
+<bean id="myCoach" class="com.springdemo.BaseballCoach">
+ 
+    // inject the dependency/helper using "constructor injection"
+    <constructor-arg ref="myFortuneService" />
+ 
+</bean>
+
+<!-- BaseballCoach myCoach = new BaseballCoach(myFortuneService); 
+    is done by Spring Framework using the created beans above. -->
+```
 
 ---
