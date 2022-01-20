@@ -42,7 +42,7 @@
   
   **2. Create a spring container.**
   - Spring container is generally known as ApplicationContext.
-  - Specialized implementations
+  - Specialized implementations.
      1. ClassPathXmlApplicationContext
      2. AnnotationConfigApplicationContext
      3. GenericWebApplicationContext
@@ -77,13 +77,13 @@ Coach theCoach = context.getBean("myCoach", Coach.class);
 
 ## 3.2 Demo Example
  - The Coach already provides daily workouts.
- - Now will also priovide daily fortunes
+ - Now will also priovide daily fortunes.
    1. New helper: FortuneService
    2. This is dependency
 
 ## 3.3 Injection Types
  - There are many types of injection with Spring.
- - There are the two most common
+ - There are the two most common.
     1. Construction Injection
     2. Setter Injection
 
@@ -140,6 +140,56 @@ public class BaseballCoach implements Coach {
 
 <!-- BaseballCoach myCoach = new BaseballCoach(myFortuneService); 
     is done by Spring Framework using the configuration above. -->
+```
+
+## 3.5 Development Process - Setter Injection
+
+**1. Create setter method(s) in the class for injections.**
+```java
+// File: CricketCoach.java
+public class  CricketCoach implements Coach {
+    // define field
+    private FortuneService fortuneService; 
+    
+    // define no-arg constructor
+    public CricketCoach() { 
+        
+    }
+    
+    // this setter method will be called by Spring during setter injection
+    public void setFortuneService(FortuneService fortuneService) {
+        this.fortuneService = fortuneService;
+    }
+    ...
+}
+```
+**2. Configure the dependency injection in Spring config file.**
+```xml
+<!-- File: applicationContext.xml -->
+
+<!-- define dependency/helper -->
+<bean id="myFortuneService" class="com.springdemo.HappyFortuneService"></bean>
+
+<!-- HappyFortuneService myFortuneService = new HappyFortuneService();
+   is done by Spring Framework using the configuration above. -->
+
+
+<bean id="myCricketCoach" class="com.springdemo.CricketCoach">
+ 
+    <!-- setter injection -->
+    <!--
+    Spring will actually capitalize the first letter of property name, 
+    call the setFortuneService and pass in myFortuneService as an argument for that call.
+    -->
+    <property name="fortuneService" ref="myFortuneService" />
+ 
+</bean>
+
+<!-- 
+    CricketCoach myCricketCoach = new CricketCoach(); 
+    myCricketCoach.setFortuneService(myFortuneService); 
+    is done by Spring Framework using the configuration above. 
+-->
 ```
 
 ---
