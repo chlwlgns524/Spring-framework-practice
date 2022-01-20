@@ -14,7 +14,11 @@
     </bean>
 
 	<bean id="myCricketCoach" class="com.springdemo.CricketCoach">
+		<!-- set up setter injection -->
 		<property name="fortuneService" ref="myFortune" />
+		
+		<property name="team" value="Samsung Lions" />
+		<property name="emailAddress" value="cricket@gmail.com" />
 	</bean>
 
 
