@@ -192,4 +192,42 @@ public class  CricketCoach implements Coach {
 -->
 ```
 
+## 3.6 Development Process - Literal Injection
+
+**1. Create setter method(s) in the class for injections.**
+```java
+// File: CricketCoach.java
+public class  CricketCoach implements Coach {
+    ...
+    // create private fields
+    private String emailAddress;
+    private String team;
+    
+    ...
+    //create setter methods
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+    
+    public void setTeam(String team) {
+        this.team = team;
+    }
+    
+    ...
+}
+```
+**2. Configure the injection in Spring config file.**
+```xml
+<!-- File: applicationContext.xml -->
+
+<bean id="myCricketCoach" class="com.springdemo.CricketCoach">
+    
+    <property name="fortuneService" ref="myFortuneService" />
+    
+    <!-- notice that 'value' atrribute, unlike the 'ref' attribute above -->
+    <property name="emailAddress" value="choijh@gmail.com" />
+    <property name="team" value="Best Effort" />
+ 
+</bean>
+```
 ---
