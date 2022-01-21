@@ -219,7 +219,6 @@ public class  CricketCoach implements Coach {
 **2. Configure the injection in Spring config file.**
 ```xml
 <!-- File: applicationContext.xml -->
-
 <bean id="myCricketCoach" class="com.springdemo.CricketCoach">
     
     <property name="fortuneService" ref="myFortuneService" />
