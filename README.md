@@ -229,4 +229,14 @@ public class  CricketCoach implements Coach {
  
 </bean>
 ```
+
+
+## 3.7 Development Process - Injecting Values from a Properties File
+
+**1. Create properties file.**
+
+**2. Load properties file in Spring config file.**
+
+**3. Reference values from properties file.**
+
 ---
