@@ -132,10 +132,8 @@ public class BaseballCoach implements Coach {
 
 
 <bean id="myCoach" class="com.springdemo.BaseballCoach">
- 
     // inject the dependency/helper using "constructor injection"
     <constructor-arg ref="myFortuneService" />
- 
 </bean>
 
 <!-- BaseballCoach myCoach = new BaseballCoach(myFortuneService); 
@@ -225,7 +223,6 @@ public class  CricketCoach implements Coach {
 ```xml
 <!-- File: applicationContext.xml -->
 <bean id="myCricketCoach" class="com.springdemo.CricketCoach">
-    
     <property name="fortuneService" ref="myFortuneService" />
     
     <!-- notice that 'value' atrribute, unlike the 'ref' attribute above -->
