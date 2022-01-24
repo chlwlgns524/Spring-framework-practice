@@ -160,7 +160,9 @@ public class  CricketCoach implements Coach {
     public void setFortuneService(FortuneService fortuneService) {
         this.fortuneService = fortuneService;
     }
+    
     ...
+    
 }
 ```
 **2. Configure the dependency injection in Spring config file.**
@@ -198,13 +200,16 @@ public class  CricketCoach implements Coach {
 ```java
 // File: CricketCoach.java
 public class  CricketCoach implements Coach {
+
     ...
+    
     // create private fields
     private String emailAddress;
     private String team;
     
     ...
-    //create setter methods
+    
+    // create setter methods
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
@@ -234,9 +239,33 @@ public class  CricketCoach implements Coach {
 ## 3.7 Development Process - Injecting Values from a Properties File
 
 **1. Create properties file.**
+```txt
+// File: sport.properties
+// name=value
+cricketCoach.team=HanHwa Eagles
+cricketCoach.emailAddress=eagles@hanhwa.com
+```
 
 **2. Load properties file in Spring config file.**
+```xml
+// File: applicationContext.xml
+<context:property-placeholder location="classpath:sport.properties"/>
+```
 
 **3. Reference values from properties file.**
+```xml
+/// File: applicationContext.xml
 
+...
+
+<bean id="myCricketCoach" class="com.springdemo.CricketCoach">
+  ...  
+  <!-- inject literal values from the properties file -->
+  <property name="team" value="${cricketCoach.team}" />
+  <property name="emailAddress" value="${cricketCoach.emailAddress}" />
+</bean>
+
+...
+
+```
 ---
